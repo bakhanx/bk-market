@@ -2,4 +2,9 @@
 
 - /index (Main)
 - /enter
+- /items/`[id]`
+
+- community/index
+
+
 - /test
