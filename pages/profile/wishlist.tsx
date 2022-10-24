@@ -2,10 +2,10 @@ import { NextPage } from "next";
 import Item from "../../components/item";
 import Layout from "../../components/layout";
 
-const Sold: NextPage = () => {
+const Love: NextPage = () => {
   return (
-    <Layout canGoBack title="Sold History">
-    <div className="flex flex-col divide-y pb-10">
+    <Layout canGoBack title="Wish List">
+     <div className="flex flex-col divide-y space-y-5 pb-10">
         {[...Array(10)].map((_, i) => (
           <Item
             key={i}
@@ -18,8 +18,7 @@ const Sold: NextPage = () => {
         ))}
       </div>
     </Layout>
- 
   );
 };
 
-export default Sold;
+export default Love;
