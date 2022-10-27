@@ -1,12 +1,35 @@
+import { NextPage } from "next";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import Button from "../components/button";
 import Input from "../components/input";
-import { cls } from "../libs/utils";
+import useMutation from "../libs/client/useMutation";
+import { cls } from "../libs/client/utils";
 
-export default function Enter() {
+interface EnterForm {
+  email?: string;
+  phone?: string;
+}
+
+const Enter : NextPage = ()=> {
+  const [enter, {loading, data, error}] = useMutation("/api/users/enter");
+  const [submitting, setSubmitting] = useState(false);
   const [method, setMethod] = useState<"email" | "phone">("email");
-  const onEmailClick = () => setMethod("email");
-  const onPhoneClick = () => setMethod("phone");
+  const onEmailClick = () => {
+    reset();
+    setMethod("email");
+  };
+  const onPhoneClick = () => {
+    reset();
+    setMethod("phone");
+  };
+
+  const { register, watch, reset, handleSubmit } = useForm<EnterForm>();
+
+  const onValid = (validForm: EnterForm) => {
+    enter(validForm);
+  };
+  console.log(loading,data,error);
 
   return (
     <div className="mt-16 px-4">
@@ -40,13 +63,20 @@ export default function Enter() {
           </div>
         </div>
 
-        <form className="flex flex-col mt-8 space-y-4">
+        <form onSubmit={handleSubmit(onValid)}  className="flex flex-col mt-8 space-y-4">
           {method === "email" ? (
-            <Input name="email" label="Email address" type="email" required />
+            <Input
+              register={register("email",{required:true})}
+              name="email"
+              label="Email address"
+              type="email"
+              required
+            />
           ) : null}
 
           {method === "phone" ? (
             <Input
+              register={register("phone",{required:true})}
               name="phone"
               label="Phone Number"
               type="number"
@@ -56,8 +86,7 @@ export default function Enter() {
           ) : null}
 
           {method === "email" ? <Button text="Get Login Link" /> : null}
-          {method === "phone" ? <Button text="Get one-time password" /> : null}
-
+          {method === "phone" ? <Button text={submitting ? "Loading..." :"Get one-time password"} /> : null}
         </form>
 
         <div className="mt-8">
@@ -105,3 +134,5 @@ export default function Enter() {
     </div>
   );
 }
+
+export default Enter;

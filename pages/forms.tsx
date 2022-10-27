@@ -22,7 +22,7 @@ export default function Forms() {
   const onValid = (data: LoginForm) => {
     console.log("I'm valid");
     // reset();
-    reset("username", "password")
+    // reset();
     resetField("password");
     setError("username" ,{message : "Taken username."});
   };
