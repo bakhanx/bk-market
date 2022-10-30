@@ -11,8 +11,8 @@ export default function withHandler(
 ) {
   return async function (
     req: NextApiRequest,
-    res: NextApiResponse<ResponseType>
-  ) {
+    res: NextApiResponse
+  ): Promise<any> {
     if (req.method !== method) {
       return res.status(405).end();
     }
