@@ -125,7 +125,7 @@ const router = useRouter();
                   register={register("phone", { required: true })}
                   name="phone"
                   label="Phone Number"
-                  type="string"
+                  type="number"
                   kind="phone"
                   required
                 />
