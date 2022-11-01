@@ -12,7 +12,7 @@
 - index
 - :id
 
-## items
+## products
 - upload
 - :id
 

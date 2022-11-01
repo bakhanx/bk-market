@@ -16,7 +16,7 @@ export default function Item({
   id,
 }: ItemProps) {
   return (
-    <Link href={`/items/${id}`}>
+    <Link href={`/products/${id}`}>
       <a className="flex px-4 py-5 cursor-pointer justify-between hover:bg-orange-50">
         <div className="flex space-x-4">
           <div className="w-20 h-20 bg-gray-400 rounded-md" />
