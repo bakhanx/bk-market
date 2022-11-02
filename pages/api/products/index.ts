@@ -11,7 +11,16 @@ async function handler(
   // const { user } = req.session;
   // ⬇ summary
   if (req.method === "GET") {
-    const products = await client.product.findMany({});
+    const products = await client.product.findMany({
+      include:{
+        _count : {
+          select :{
+            favorites:true,
+          }
+        }
+      }
+
+    });
     res.json({
       ok: true,
       products,

@@ -2,11 +2,12 @@ import { NextPage } from "next";
 import Button from "@components/button";
 import Layout from "@components/layout";
 import { useRouter } from "next/router";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import Link from "next/link";
 import { Product, User } from "@prisma/client";
 import useMutation from "@libs/client/useMutation";
 import { cls } from "@libs/client/utils";
+import products from "pages/api/products";
 
 interface ProductWithUser extends Product {
   user: User;
@@ -21,16 +22,28 @@ interface ItemDetailResoponse {
 
 const ItemDetail: NextPage = () => {
   const router = useRouter();
-  console.log(router.query);
+  const { mutate: unboundMutate } = useSWRConfig();
 
-  const { data } = useSWR<ItemDetailResoponse>(
+  const { data, mutate: boundMutate } = useSWR<ItemDetailResoponse>(
     router.query.id ? `/api/products/${router.query.id}` : null
   );
 
   const [toggleFavorite] = useMutation(
     `/api/products/${router.query.id}/favorite`
   );
+
   const onFavoriteClick = () => {
+    if (!data) return;
+    boundMutate((prev) => prev && { ...prev, isLiked: !prev.isLiked }, false);
+
+    // ======================== ERORR ================
+    // unboundMutate(
+    //   "/api/users/me",
+    //   (prev: any) => ({
+    //     ok: !prev?.ok,
+    //   }),
+    //   false
+    // );
     toggleFavorite({});
   };
 
@@ -92,7 +105,7 @@ const ItemDetail: NextPage = () => {
                 className={cls(
                   "p-3 rounded-md flex items-center justify-center",
                   data?.isLiked
-                    ? "text-red-500 hover:text-gray-400"
+                    ? "text-red-500 hover:text-red-400"
                     : "text-gray-400 hover:text-red-500"
                 )}
               >
@@ -130,7 +143,7 @@ const ItemDetail: NextPage = () => {
         <div>
           <h2 className="text-2xl font-bold text-gray-700">Similar items</h2>
           <div className="mt-6 grid grid-cols-2 gap-4">
-            {data?.relatedProducts.map((product) => (
+            {data?.relatedProducts?.map((product) => (
               <Link key={product.id} href={`/products/${product.id}`}>
                 <a>
                   <div className="h-56 w-full mb-4 bg-slate-300" />

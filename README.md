@@ -33,7 +33,7 @@
 
 ### Components
 - button
-- floating button
+- floating button 
 - input
 - item
 - layout
