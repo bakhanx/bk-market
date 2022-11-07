@@ -10,53 +10,51 @@ async function handler(
 ) {
   const {
     query: { id },
+    session: { user },
   } = req;
 
-  //   API Handler
-  const post = await client.post.findUnique({
+  const alreadyExists = await client.wondering.findFirst({
     where: {
-      id: Number(id),
+      userId: user?.id,
+      postId: Number(id),
     },
-    include: {
-      user: {
-        select: {
-          id: true,
-          name: true,
-          avatar: true,
-        },
-      },
-      answer: {
-        select: {
-          answer: true,
-          id: true,
-          user: {
-            select: {
-              avatar: true,
-              id: true,
-              name: true,
-            },
-          },
-        },
-      },
-
-      _count: {
-        select: {
-          answer: true,
-          wondering: true,
-        },
-      },
+    select: {
+      id: true,
     },
   });
 
+  if (alreadyExists) {
+    await client.wondering.delete({
+      where: {
+        id: alreadyExists.id,
+      },
+    });
+  } else {
+    await client.wondering.create({
+      data: {
+        user: {
+          connect: {
+            id: user?.id,
+          },
+        },
+        post: {
+          connect: {
+            id: Number(id),
+          },
+        },
+      },
+    });
+  }
+
+  //   API Handler
   res.json({
     ok: true,
-    post,
   });
 }
 
 export default withApiSession(
   withHandler({
-    methods: ["GET"],
+    methods: ["POST"],
     handler,
   })
 );
