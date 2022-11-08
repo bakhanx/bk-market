@@ -3,14 +3,14 @@ import Item from "@components/item";
 import Layout from "@components/layout";
 import ProductList from "@components/product-list";
 
-const Sold: NextPage = () => {
+const Favorite: NextPage = () => {
   return (
-    <Layout canGoBack title="Sold History">
-      <div className="flex flex-col divide-y pb-10">
-        <ProductList kind="sales" />
+    <Layout canGoBack title="Wish List">
+     <div className="flex flex-col divide-y space-y-5 pb-10">
+     <ProductList kind="favorites" />
       </div>
     </Layout>
   );
 };
 
-export default Sold;
+export default Favorite;

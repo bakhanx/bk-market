@@ -8,7 +8,7 @@ import useSWR from "swr";
 import { Product } from "@prisma/client";
 
 
-interface ProductWithCount extends Product {
+export interface ProductWithCount extends Product {
   _count : {
     favorites : number
   }
@@ -32,7 +32,7 @@ const Home: NextPage = () => {
         <title>Home</title>
       </Head>
       <div className="flex flex-col divide-y">
-        {data?.products.map((product) => (
+        {data?.products?.map((product) => (
           <Item
             id={product.id}
             key={product.id}
