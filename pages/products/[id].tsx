@@ -23,7 +23,6 @@ interface ItemDetailResoponse {
 const ItemDetail: NextPage = () => {
   const router = useRouter();
   const { mutate: unboundMutate } = useSWRConfig();
-
   const { data, mutate: boundMutate } = useSWR<ItemDetailResoponse>(
     router.query.id ? `/api/products/${router.query.id}` : null
   );
@@ -47,16 +46,19 @@ const ItemDetail: NextPage = () => {
     toggleFavorite({});
   };
 
+
+
   console.log(data);
 
   return (
     <Layout canGoBack>
       <div className="px-4 py-4">
         <div className="mb-8">
-          <div className="h-96 bg-slate-300" />
+          <img src={`https://imagedelivery.net/214BxOnlVKSU2amZRZmdaQ/${data?.product.image}/public`} className="h-96 bg-slate-300" />
+
           {/* Profile */}
           <div className="flex cursor-pointer py-3 border-t border-b items-center space-x-3">
-            <div className="w-12 h-12 rounded-full bg-slate-300" />
+            <img src={`https://imagedelivery.net/214BxOnlVKSU2amZRZmdaQ/${data?.product.user.avatar}/avatar`} className="w-12 h-12 rounded-full bg-slate-300" />
             <div>
               <p className="text-sm font-semibold text-gray-700">
                 {data?.product?.user?.name}

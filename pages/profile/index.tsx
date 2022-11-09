@@ -6,6 +6,7 @@ import useSWR from "swr";
 import { Review, User } from "@prisma/client";
 import reviews from "pages/api/reviews";
 import { cls } from "@libs/client/utils";
+import Image from "next/image";
 
 interface ReviewWithUser extends Review {
   createBy: User;
@@ -26,7 +27,15 @@ const Profile: NextPage = () => {
     <Layout title="Profile" hasTabBar>
       <div className="py-10 px-4">
         <div className="flex items-center space-x-3">
-          <div className="w-16 h-16 bg-slate-500 rounded-full" />
+          {user?.avatar ? (
+            <img
+              src={`https://imagedelivery.net/214BxOnlVKSU2amZRZmdaQ/${user?.avatar}/avatar`}
+              className="w-16 h-16 bg-slate-500 rounded-full"
+            />
+          ) : (
+            <div className="w-16 h-16 bg-slate-500 rounded-full" />
+          )}
+
           <div className="flex flex-col">
             <span className="font-semibold text-gray-900">{user?.name}</span>
 
@@ -125,7 +134,7 @@ const Profile: NextPage = () => {
                   {/* score (stars) */}
 
                   <div className="flex items-center">
-                    {[...Array(5)].map((_,i) => (
+                    {[...Array(5)].map((_, i) => (
                       <svg
                         key={i}
                         className={cls(
