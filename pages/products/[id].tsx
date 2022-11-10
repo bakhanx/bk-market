@@ -8,6 +8,7 @@ import { Product, User } from "@prisma/client";
 import useMutation from "@libs/client/useMutation";
 import { cls } from "@libs/client/utils";
 import products from "pages/api/products";
+import Image from "next/image";
 
 interface ProductWithUser extends Product {
   user: User;
@@ -46,19 +47,32 @@ const ItemDetail: NextPage = () => {
     toggleFavorite({});
   };
 
-
-
   console.log(data);
 
   return (
     <Layout canGoBack>
       <div className="px-4 py-4">
         <div className="mb-8">
-          <img src={`https://imagedelivery.net/214BxOnlVKSU2amZRZmdaQ/${data?.product.image}/public`} className="h-96 bg-slate-300" />
+          {/* Product Image */}
+          <div className="relative pb-80 -z-10">
+            <Image
+              alt="wisky"
+              layout="fill"
+              src={`https://imagedelivery.net/214BxOnlVKSU2amZRZmdaQ/${data?.product.image}/public`}
+              className="h-96 bg-slate-300 object-cover"
+              // objectFit="cover" // Image component's object-cover === tailwind's object-cover
+            />
+          </div>
 
           {/* Profile */}
           <div className="flex cursor-pointer py-3 border-t border-b items-center space-x-3">
-            <img src={`https://imagedelivery.net/214BxOnlVKSU2amZRZmdaQ/${data?.product.user.avatar}/avatar`} className="w-12 h-12 rounded-full bg-slate-300" />
+            <Image
+              alt="profile"
+              width={48}
+              height={48}
+              src={`https://imagedelivery.net/214BxOnlVKSU2amZRZmdaQ/${data?.product.user.avatar}/avatar`}
+              className="w-12 h-12 rounded-full bg-slate-300"
+            />
             <div>
               <p className="text-sm font-semibold text-gray-700">
                 {data?.product?.user?.name}
