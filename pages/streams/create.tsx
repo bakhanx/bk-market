@@ -6,7 +6,7 @@ import TextArea from "@components/textarea";
 
 const Create: NextPage = () => {
   return (
-    <Layout canGoBack>
+    <Layout seoTitle="" canGoBack>
       <form className="px-4 py-10 space-y-4">
         <Input required label="Name" name="name" type="text" />
         <Input
@@ -15,7 +15,6 @@ const Create: NextPage = () => {
           name="price"
           type="text"
           kind="price"
-          placeholder="0"
         />
         {/* Name Input */}
 

@@ -36,7 +36,7 @@ const Community: NextPage = () => {
   console.log(data);
 
   return (
-    <Layout title="Neighbor" hasTabBar>
+    <Layout seoTitle="Neighbor" hasTabBar>
       <div className="py-16 px-4 space-y-8">
         {data?.posts.map((post) => (
           <Link key={post.id} href={`/community/${post.id}`}>

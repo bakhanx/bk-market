@@ -4,7 +4,7 @@ import Layout from "@components/layout";
 
 const Chats: NextPage = () => {
   return (
-    <Layout hasTabBar title="Chats">
+    <Layout hasTabBar seoTitle="Chats">
       <div className="divide-y">
         {/* Profile */}
 

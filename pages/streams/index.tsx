@@ -5,7 +5,7 @@ import Layout from "@components/layout";
 
 const Live: NextPage = () => {
   return (
-    <Layout title="Home" hasTabBar>
+    <Layout seoTitle="Streams" hasTabBar>
       <div className="py-10 px-4 divide-y-2 space-y-4">
         {[...Array(5)].map((_, i) => (
           <Link key={i} href={`streams/${i}`}>

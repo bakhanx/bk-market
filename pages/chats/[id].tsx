@@ -1,10 +1,13 @@
 import { NextPage } from "next";
 import Layout from "@components/layout";
 import Message from "@components/message";
+import useSWR from "swr";
 
 const ChatDetail: NextPage = () => {
+  const {data} = useSWR("/api/users/me");
+
   return (
-    <Layout canGoBack title="James">
+    <Layout canGoBack seoTitle={data?.profile.name}>
       <div className="py-10 px-4 space-y-4">
         <Message message="안녕" />
         <Message message="뭘봐" reversed />

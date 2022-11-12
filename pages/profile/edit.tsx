@@ -123,7 +123,7 @@ const EditProfile: NextPage = () => {
   }, [data, router]);
 
   return (
-    <Layout canGoBack title="Edit Profile">
+    <Layout canGoBack seoTitle="Edit Profile">
       <form
         onSubmit={handleSubmit(onValid)}
         onChange={onChange}

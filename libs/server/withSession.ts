@@ -1,4 +1,4 @@
-import { withIronSessionApiRoute } from "iron-session/next";
+import { withIronSessionApiRoute, withIronSessionSsr } from "iron-session/next";
 
 // passwordsgenerators.net // at least 36 words
 
@@ -18,4 +18,8 @@ const cookieOptions = {
 
 export function withApiSession(fn :any){
     return withIronSessionApiRoute(fn, cookieOptions);
+}
+
+export function withSsrSession(handler: any){
+  return withIronSessionSsr(handler,cookieOptions);
 }

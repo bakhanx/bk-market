@@ -8,9 +8,11 @@ import { cls } from "@libs/client/utils";
 import { useRouter } from "next/router";
 
 import dynamic from "next/dynamic";
+import Head from "next/head";
 
 const Bs = dynamic(
-  () : any =>
+  //@ts-ignore
+  ()  =>
     new Promise((resolve) =>
       setTimeout(() => {
         resolve(import("@components/bs-component"));
@@ -77,6 +79,9 @@ const Enter: NextPage = () => {
 
   return (
     <div className="mt-16 px-4">
+     <Head>
+      <title>Login | BKN Market</title>
+      </Head>
       <h3 className="text-3xl font-bold text-center">Enter to Carrot</h3>
       <div className="mt-8">
         {data?.ok ? (

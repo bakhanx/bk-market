@@ -5,7 +5,7 @@ import ProductList from "@components/product-list";
 
 const Favorite: NextPage = () => {
   return (
-    <Layout canGoBack title="Wish List">
+    <Layout canGoBack seoTitle="Favorite List">
      <div className="flex flex-col divide-y space-y-5 pb-10">
      <ProductList kind="favorites" />
       </div>

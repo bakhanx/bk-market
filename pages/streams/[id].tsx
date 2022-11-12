@@ -1,10 +1,11 @@
 import { NextPage } from "next";
 import Layout from "@components/layout";
 import Message from "@components/message";
+import useSWR from "swr";
 
 const StreamDetail: NextPage = () => {
   return (
-    <Layout canGoBack>
+    <Layout seoTitle="" canGoBack>
       <div className="py-10 px-4 space-y-4">
         <div className="w-full bg-slate-300 rounded-md shadow-sm aspect-video" />
         <div className="mt-5">

@@ -89,7 +89,7 @@ const CommunityPostDetail: NextPage = () => {
 
   console.log(data);
   return (
-    <Layout canGoBack>
+    <Layout canGoBack seoTitle={data?.post?.user?.name!}>
       <div>
         {/* category */}
         <span className="inline-flex ml-4  my-3 items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-800">
