@@ -1,11 +1,29 @@
 import { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "@components/button";
 import Input from "@components/input";
 import useMutation from "@libs/client/useMutation";
 import { cls } from "@libs/client/utils";
 import { useRouter } from "next/router";
+
+import dynamic from "next/dynamic";
+
+const Bs = dynamic(
+  () : any =>
+    new Promise((resolve) =>
+      setTimeout(() => {
+        resolve(import("@components/bs-component"));
+      }, 300)
+    ),
+  // ! nextjs loader
+  // {ssr:false, loading:()=> <span>Loading a big component...</span>}
+
+  // ! reactjs loader (suspense)
+  { ssr: false, suspense: true }
+);
+
+// import Bs from "@components/bs-component";
 
 interface EnterForm {
   email?: string;
@@ -50,12 +68,12 @@ const Enter: NextPage = () => {
   };
 
   console.log(data);
-const router = useRouter();
-  useEffect(()=>{
-    if(tokenData?.ok){
+  const router = useRouter();
+  useEffect(() => {
+    if (tokenData?.ok) {
       router.push("/");
     }
-  }, [tokenData, router])
+  }, [tokenData, router]);
 
   return (
     <div className="mt-16 px-4">
@@ -121,14 +139,19 @@ const router = useRouter();
               ) : null}
 
               {method === "phone" ? (
-                <Input
-                  register={register("phone", { required: true })}
-                  name="phone"
-                  label="Phone Number"
-                  type="number"
-                  kind="phone"
-                  required
-                />
+                <>
+                  <Suspense fallback="Loading a big Component...">
+                    <Bs />
+                  </Suspense>
+                  <Input
+                    register={register("phone", { required: true })}
+                    name="phone"
+                    label="Phone Number"
+                    type="number"
+                    kind="phone"
+                    required
+                  />
+                </>
               ) : null}
 
               {method === "email" ? <Button text="Get Login Link" /> : null}

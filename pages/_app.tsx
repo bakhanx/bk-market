@@ -10,6 +10,7 @@ function CustomUser() {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
+  console.log("App is running");
   return (
     <SWRConfig
       value={{
