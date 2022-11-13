@@ -5,6 +5,7 @@ import useUser from "@libs/client/useUser";
 import { useRouter } from "next/router";
 import Script from "next/script";
 
+
 function CustomUser() {
   useUser();
   return null;
@@ -28,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Script src="https://developers.kakao.com/sdk/js/kakao.js" strategy="lazyOnload" />
 
       
-      <Script src="https://connect.facebook.net/en_US/sdk.js" onLoad={() =>{
+      {/* <Script src="https://connect.facebook.net/en_US/sdk.js" onLoad={() =>{
          window.fbAsyncInit = function() {
           FB.init({
             appId            : 'your-app-id',
@@ -37,7 +38,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             version          : 'v15.0'
           });
         };
-      }} />
+      }} /> */}
 
     </SWRConfig>
   );

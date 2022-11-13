@@ -1,12 +1,10 @@
-import type { NextPage, NextPageContext } from "next";
+import type { GetServerSideProps, NextPage, NextPageContext } from "next";
 import Link from "next/link";
 import Layout from "@components/layout";
 import useUser from "@libs/client/useUser";
 import useSWR, { SWRConfig } from "swr";
 import { Review, User } from "@prisma/client";
-import reviews from "pages/api/reviews";
 import { cls } from "@libs/client/utils";
-import Image from "next/image";
 import { withSsrSession } from "@libs/server/withSession";
 
 interface ReviewWithUser extends Review {
@@ -182,10 +180,10 @@ const Page: NextPage<{ profile: User }> = ({ profile }) => {
   );
 };
 
-export const getServerSideProps = withSsrSession(async function ({
+export const getServerSideProps :GetServerSideProps = withSsrSession(async function ({
   req,
 }: NextPageContext) {
-  const profile = await client?.user.findUnique({
+  const profile = await client?.user?.findUnique({
     where: {
       id: req?.session?.user?.id,
     },
