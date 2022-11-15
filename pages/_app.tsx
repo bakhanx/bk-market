@@ -4,7 +4,7 @@ import { SWRConfig } from "swr";
 import useUser from "@libs/client/useUser";
 import { useRouter } from "next/router";
 import Script from "next/script";
-
+import { Suspense } from "react";
 
 function CustomUser() {
   useUser();
@@ -26,9 +26,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <CustomUser />
       </div>
 
-      <Script src="https://developers.kakao.com/sdk/js/kakao.js" strategy="lazyOnload" />
+      <Script
+        src="https://developers.kakao.com/sdk/js/kakao.js"
+        strategy="lazyOnload"
+      />
 
-      
       {/* <Script src="https://connect.facebook.net/en_US/sdk.js" onLoad={() =>{
          window.fbAsyncInit = function() {
           FB.init({
@@ -39,7 +41,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           });
         };
       }} /> */}
-
     </SWRConfig>
   );
 }
