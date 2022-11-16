@@ -56,6 +56,8 @@ model Product {
   sales       Sale[]
   purchases   Purchase[]
   record      Record[]
+
+  @@index([userId])
 }
 
 model Post {
@@ -69,6 +71,8 @@ model Post {
   longitude Float?
   answer    Answer[]
   wondering Wondering[]
+
+  @@index([userId])
 }
 
 model Answer {
@@ -80,6 +84,8 @@ model Answer {
   post    Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId  Int
   answer  String   @db.MediumText
+
+  @@index([userId, postId])
 }
 
 model Wondering {
@@ -90,6 +96,8 @@ model Wondering {
   userId  Int
   post    Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId  Int
+
+  @@index([userId, postId])
 }
 
 model Review {
@@ -102,6 +110,8 @@ model Review {
   createFor       User     @relation(name: "receivedReviews", fields: [createForUserId], references: [id], onDelete: Cascade)
   createForUserId Int
   score           Int      @default(1)
+
+  @@index([createByUserId, createForUserId])
 }
 
 model Sale {
@@ -112,6 +122,8 @@ model Sale {
   productId Int
   created   DateTime @default(now())
   updated   DateTime @updatedAt
+
+  @@index([userId, productId])
 }
 
 model Purchase {
@@ -122,6 +134,8 @@ model Purchase {
   productId Int
   created   DateTime @default(now())
   updated   DateTime @updatedAt
+
+  @@index([userId, productId])
 }
 
 model Favorite {
@@ -132,6 +146,8 @@ model Favorite {
   productId Int
   created   DateTime @default(now())
   updated   DateTime @updatedAt
+
+  @@index([userId, productId])
 }
 
 model Record {
@@ -143,6 +159,8 @@ model Record {
   created   DateTime @default(now())
   updated   DateTime @updatedAt
   kind      Kind // [Enum] Favorite, Sale, Purchase
+
+  @@index([userId, productId])
 }
 
 enum Kind {

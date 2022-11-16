@@ -13,7 +13,9 @@ async function handler(
 ) {
   const { phone, email } = req.body;
   const user = phone ? { phone: phone } : { email } ? { email } : null;
+  console.log("user:" , user);
   if (!user) return res.status(400).json({ ok: false });
+  
   const payload = Math.floor(10000 + Math.random() * 90000) + "";
   const token = await client.token.create({
     data: {
@@ -65,8 +67,8 @@ async function handler(
     // console.log(result);
   }
 
-  console.log(token);
-  console.log(user);
+  console.log("token : " , token);
+  console.log("user : " , user);
 
   console.log(req.body);
   return res.json({
