@@ -12,6 +12,7 @@ export default function useUser() {
   const [url, setUrl] = useState("");
   useEffect(() => {
     setUrl("/api/users/me");
+    // setUrl(typeof window === "undefined" ? "" : "/api/users/me");
   }, []);
 
   const router = useRouter();
