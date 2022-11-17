@@ -26,7 +26,8 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
       if (ua.isBot || (!session?.user && !req.url.includes("/enter"))) {
         req.nextUrl.searchParams.set("from", req.nextUrl.pathname);
         req.nextUrl.pathname = "/enter";
-        return NextResponse.redirect(req.nextUrl);
+        // return NextResponse.redirect(req.nextUrl);
+        return NextResponse.redirect(new URL("/enter"), req.nextUrl);
       }
     }
   }
