@@ -15,9 +15,9 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
   const session = await getIronSession(req, res, {
     cookieName: "bksession",
     password: process.env.COOKIE_PASSWORD!,
-    // cookieOptions:{
-    //   secure: process.env.NODE_ENV === "production"
-    // }
+    cookieOptions:{
+      secure: process.env.NODE_ENV === "production"
+    }
   });
 
   // ============ Gobal Login Check ==============
